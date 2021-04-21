@@ -15,7 +15,7 @@
 
 ### Association
 - has_many :items
-- has_many :purchase_management
+- has_many :purchase_managements
 
 
 
@@ -52,7 +52,7 @@
 | municipality             | string     | null: false                    |
 | addres                   | string     | null: false                    |
 | building_name            | string     |                                |
-| phone_number             | integer    | null: false                    |
+| phone_number             | string     | null: false                    |
 | purchase_management_id   | integer    | null: false, foreign_key: true |
 
 
@@ -63,7 +63,7 @@
 
 
 
-## purchase_management テーブル
+## purchase_managements テーブル
 
 | Column    | Type       | Options                           |
 | --------- | ---------- | ----------------------------------|
