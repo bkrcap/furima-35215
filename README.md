@@ -1,24 +1,81 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column                          | Type   | Options                   |
+| --------------------------------| ------ | ------------------------- |
+| nickname                        | string | null: false               |
+| email                           | string | null: false, unique: true |
+| encrypted_password              | string | null: false               |
+| last_name                       | string | null: false               |
+| first_name                      | string | null: false               |
+| last_name_kana                  | string | null: false               |
+| first_name_kana                 | string | null: false               |
+| birthday                        | date   | null: false               |
 
-* Ruby version
+### Association
+- has_many :items
+- has_many :purchase_managements
 
-* System dependencies
 
-* Configuration
 
-* Database creation
 
-* Database initialization
+## items テーブル
 
-* How to run the test suite
+| Column             | Type    | Options     |
+| ------------------ | ------- | ----------- |
+| item_name          | string  | null: false |
+| description_item   | text    | null: false |
+| category_id        | integer | null: false |
+| item_status_id     | integer | null: false |
+| shipping_charge_id | integer | null: false |
+| shipping_area_id   | integer | null: false |
+| shipping_days_id   | integer | null: false |
+| selling_price      | integer | null: false |
+| user_id            | integer | null: false, foreign_key: true |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+- belongs_to :user
+- has_one :purchase_management
 
-* Deployment instructions
 
-* ...
+
+
+
+
+## purchases テーブル
+
+| Column                   | Type       | Options                        |
+| ------------------------ | ---------- | -------------------------------|
+| postal_code              | string     | null: false                    |
+| shipping_area_id         | integer    | null: false                    |
+| municipality             | string     | null: false                    |
+| addres                   | string     | null: false                    |
+| building_name            | string     |                                |
+| phone_number             | string     | null: false                    |
+| purchase_management_id   | integer    | null: false, foreign_key: true |
+
+
+### Association
+
+- belongs_to :purchase_management
+
+
+
+
+## purchase_managements テーブル
+
+| Column    | Type       | Options                           |
+| --------- | ---------- | ----------------------------------|
+| user_id   | integer    | null: false, foreign_key:true     |
+| item_id   | integer    | null: false, foreign_key:true     |
+
+### Association
+
+- has_one :purchase
+- belongs_to :user
+- belongs_to :item
+
+
+
+
