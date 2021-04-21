@@ -15,7 +15,8 @@
 
 ### Association
 - has_many :items
-- has_one :purchase_management
+- has_many :purchase_management
+
 
 
 
@@ -31,11 +32,11 @@
 | shipping_area_id   | integer | null: false |
 | shipping_days_id   | integer | null: false |
 | selling_price      | integer | null: false |
-| user_id            | integer    | null: false, foreign_key: true |
+| user_id            | integer | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
-- belongs_to :purchase_management
+- has_one :purchase_management
 
 
 
@@ -44,16 +45,15 @@
 
 ## purchases テーブル
 
-| Column           | Type       | Options                        |
-| ---------------- | ---------- | -------------------------------|
-| postal_code      | string     | null: false                    |
-| shipping_area_id | integer    | null: false                    |
-| municipality     | string     | null: false                    |
-| addres           | string     | null: false                    |
-| building_name    | string     |                                |
-| phone_number     | integer    | null: false                    |
-| user_id          | integer    | null: false, foreign_key: true |
-| item_id          | integer    | null: false, foreign_key: true |
+| Column                   | Type       | Options                        |
+| ------------------------ | ---------- | -------------------------------|
+| postal_code              | string     | null: false                    |
+| shipping_area_id         | integer    | null: false                    |
+| municipality             | string     | null: false                    |
+| addres                   | string     | null: false                    |
+| building_name            | string     |                                |
+| phone_number             | integer    | null: false                    |
+| purchase_management_id   | integer    | null: false, foreign_key: true |
 
 
 ### Association
