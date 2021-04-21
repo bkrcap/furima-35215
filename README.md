@@ -67,6 +67,10 @@
 | user_id   | integer    | null: false     |
 | item_id   | integer    | null: false     |
 
+### Association
+
+- has_one_ :purchase
+
 <!--不要とのことですが、一応自分の考えた軌跡としてコメントアウトしています。## cards テーブル
 
 | Column | Type       | Options         |
