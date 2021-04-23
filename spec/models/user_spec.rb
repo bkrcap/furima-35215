@@ -117,18 +117,22 @@ RSpec.describe User, type: :model do
     end
 
 #下記は試しに作ったコード
+  context "パスワードが登録できる時" do
     it "パスワードは、6文字以上であれば登録できる" do
       @user.password = "12345a"
       @user.password_confirmation = "12345a"
       expect(@user).to be_valid
     end
+  end
 
+  context "パスワードが登録できない時" do
     it 'passwordが6文字以下では登録できない' do
       @user.password = '0000a'
       @user.password_confirmation = '0000a'
       @user.valid?
       expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
+  end
 #//上記は試しに作ったコード
   end
 end
