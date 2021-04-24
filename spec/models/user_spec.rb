@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include "Password can't be blank"
     end
-#エラー
+
     #it "パスワードは、6文字以上でないと登録できないこと" do
       #@user.password = "1234a"
       #@user.password_confirmation = "1234a"
@@ -98,17 +98,39 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana can't be blank")
     end
-    it "ユーザー本名の名字フリガナは、全角（カタカナ）での入力でないと登録できない" do
+  end
+
+  context "ユーザー本名の名字フリガナが登録できる時" do
+    it "ユーザー本名の名字フリガナは、全角（カタカナ）での入力であれば登録できる" do
       @user.last_name_kana = 'あああああ'
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name kana 全角カタカナのみで入力して下さい")
     end
+  end
 
-    it "ユーザー本名の名前フリガナは、全角（カタカナ）での入力でないと登録できない" do
+  context "ユーザー本名の名字フリガナが登録できない時" do
+    it "ユーザー本名の名字フリガナは、半角文字だと登録できない" do
+      @user.last_name_kana = 'あああああ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Last name kana 全角カタカナのみで入力して下さい")
+    end
+  end
+
+  context "ユーザー本名の名前フリガナが登録できる時" do
+    it "ユーザー本名の名前フリガナは、全角（カタカナ）での入力であれば登録できる" do
       @user.first_name_kana = 'ｱｱｱｱｱ'
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana 全角カタカナのみで入力して下さい")
     end
+  end
+  
+  context "ユーザー本名の名前フリガナが登録できない時" do
+    it "ユーザー本名の名前フリガナは、カタカナ以外の全角文字だと登録できない" do
+      @user.first_name_kana = 'あああああ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name kana 全角カタカナのみで入力して下さい")
+    end
+  end
 
     it "生年月日が空では登録できない" do
       @user.birthday = ""
@@ -116,7 +138,7 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include "Birthday can't be blank"
     end
 
-#下記は試しに作ったコード
+   #下記は試しに作ったコード
   context "パスワードが登録できる時" do
     it "パスワードは、6文字以上であれば登録できる" do
       @user.password = "12345a"
@@ -132,7 +154,20 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
-  end
-#//上記は試しに作ったコード
+
+    it "パスワードは半角数字のみでは登録できない" do
+      @user.password = '１１１１A'
+      @user.password_confirmation = '１１１１A'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+    end
+
+    it "パスワードは全角文字では登録できない" do
+      @user.password = '1111a'
+      @user.password_confirmation = '1111a'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+    end
+   #//上記は試しに作ったコード
   end
 end
