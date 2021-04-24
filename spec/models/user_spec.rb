@@ -100,30 +100,30 @@ RSpec.describe User, type: :model do
       end
 
       it "パスワードは半角数字のみでは登録できない" do
-        @user.password = '１１１１A'
-        @user.password_confirmation = '１１１１A'
+        @user.password = '111111'
+        @user.password_confirmation = '111111'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+        expect(@user.errors.full_messages).to include('Password には半角の英字と数字の両方を含めて設定してください')
       end
 
       it "パスワードは全角文字では登録できない" do
-        @user.password = '1111a'
-        @user.password_confirmation = '1111a'
+        @user.password = '１１１１１あ'
+        @user.password_confirmation = '１１１１１あ'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+        expect(@user.errors.full_messages).to include('Password には半角の英字と数字の両方を含めて設定してください')
       end
 
-      it "メールアドレスに@があれば登録できる" do
+      it "メールアドレスに@がなければ登録できない" do
         @user.email = "test.com"
         @user.valid?
         expect(@user.errors.full_messages).to include('Email is invalid')
       end
 
-      it "パスワードは、半角英数字混合であれば登録できる" do
+      it "パスワードは、半角英数字混合でないと登録できない" do
         @user.password = "abcdef"
         @user.password_confirmation = "abcdef"
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+        expect(@user.errors.full_messages).to include('Password には半角の英字と数字の両方を含めて設定してください')
       end
 
       it "パスワードは、確認用を含めて2回入力すれば登録できる" do
