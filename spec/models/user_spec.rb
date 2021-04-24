@@ -11,55 +11,6 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
 
-      it "メールアドレスに@があれば登録できる" do
-        @user.email = "test.com"
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Email is invalid')
-
-      it "パスワードは、半角英数字混合であれば登録できる" do
-        @user.password = "abcdef"
-        @user.password_confirmation = "abcdef"
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
-      end
-
-      it "パスワードは、確認用を含めて2回入力すれば登録できる" do
-        @user.password_confirmation = ""
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-      end
-
-      it "パスワードとパスワード（確認用）は、値が一致していれば登録できる" do
-        @user.password = '123456'
-        @user.password_confirmation = '1234567'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-      end
-
-      it "ユーザー本名の名字は、全角（漢字・ひらがな・カタカナ）での入力であれば登録できる" do
-        @user.last_name = 'aaaaa'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Last name は全角ひらがな、全角カタカナ、漢字で入力して下さい")
-      end
-
-      it "ユーザー本名の名前は、全角（漢字・ひらがな・カタカナ）での入力であれば登録できる" do
-        @user.first_name = 'aaaaa'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("First name は全角ひらがな、全角カタカナ、漢字で入力して下さい")
-      end
-
-      it "ユーザー本名の名字フリガナは、全角（カタカナ）での入力であれば登録できる" do
-        @user.last_name_kana = 'あああああ'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Last name kana 全角カタカナのみで入力して下さい")
-      end
-
-      it "ユーザー本名の名前フリガナは、全角（カタカナ）での入力であれば登録できる" do
-        @user.first_name_kana = 'ｱｱｱｱｱ'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("First name kana 全角カタカナのみで入力して下さい")
-      end
-
       it "パスワードは、6文字以上であれば登録できる" do
         @user.password = "12345a"
         @user.password_confirmation = "12345a"
@@ -160,6 +111,56 @@ RSpec.describe User, type: :model do
         @user.password_confirmation = '1111a'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      end
+
+      it "メールアドレスに@があれば登録できる" do
+        @user.email = "test.com"
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Email is invalid')
+      end
+
+      it "パスワードは、半角英数字混合であれば登録できる" do
+        @user.password = "abcdef"
+        @user.password_confirmation = "abcdef"
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+      end
+
+      it "パスワードは、確認用を含めて2回入力すれば登録できる" do
+        @user.password_confirmation = ""
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+
+      it "パスワードとパスワード（確認用）は、値が一致していれば登録できる" do
+        @user.password = '123456'
+        @user.password_confirmation = '1234567'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+
+      it "ユーザー本名の名字は、全角（漢字・ひらがな・カタカナ）での入力であれば登録できる" do
+        @user.last_name = 'aaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name は全角ひらがな、全角カタカナ、漢字で入力して下さい")
+      end
+
+      it "ユーザー本名の名前は、全角（漢字・ひらがな・カタカナ）での入力であれば登録できる" do
+        @user.first_name = 'aaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name は全角ひらがな、全角カタカナ、漢字で入力して下さい")
+      end
+
+      it "ユーザー本名の名字フリガナは、全角（カタカナ）での入力であれば登録できる" do
+        @user.last_name_kana = 'あああああ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name kana 全角カタカナのみで入力して下さい")
+      end
+
+      it "ユーザー本名の名前フリガナは、全角（カタカナ）での入力であれば登録できる" do
+        @user.first_name_kana = 'ｱｱｱｱｱ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana 全角カタカナのみで入力して下さい")
       end
     end
   end
