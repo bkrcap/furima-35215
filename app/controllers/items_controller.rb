@@ -1,11 +1,27 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+
   def index
+  end
+
+  def new
+    @item = Item.new
+  end
+
+  def create
+    # binding.pry
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new 
+    end
   end
 
   private
 
   def item_params 
-    params.require(:item).permit(:image).merge(user_id: current_user.id)
+    params.require(:item).permit(:selling_price, :image, :item_name, :description_item, :category_id, :item_status_id, :shipping_charge_id, :shipping_area_id, :shipping_days_id).merge(user_id: current_user.id)
   end
 end
 
