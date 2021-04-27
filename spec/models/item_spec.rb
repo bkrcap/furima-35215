@@ -13,8 +13,11 @@ RSpec.describe Item, type: :model do
     end
 
     context "商品出品ができない時" do
-      #it "商品画像を1枚つけないと出品できない" do
-      #end
+      it "商品画像を1枚つけないと出品できない" do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
 
       it "商品名が空では出品できない" do
         @item.item_name = ""
@@ -63,10 +66,6 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Selling price can't be blank")
       end
-
-      #it "販売価格は、¥300~¥9,999,999の間以外では出品できない" do
-
-      #end
 
       it "販売価格は、¥300円未満だと出品できない" do
         @item.selling_price = 299
