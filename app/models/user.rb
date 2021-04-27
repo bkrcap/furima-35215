@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :items
+  #一旦コメントアウト。実装時にコメントアウト外すため。has_many :purchase_managements
+
   with_options presence: true do
     validates :nickname
     validates :birthday
