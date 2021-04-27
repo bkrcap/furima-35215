@@ -1,7 +1,6 @@
 window.addEventListener('load', function(){
-  //金額を入力した数値をpriceInputという変数に格納する
   const sellingPrice = document.getElementById("item-price")
-  //console.log(sellingPrice)
+  
   sellingPrice.addEventListener("input", function(){
     const inputPrice = sellingPrice.value;
     
