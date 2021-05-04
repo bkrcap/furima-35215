@@ -14,7 +14,7 @@ RSpec.describe PurchaseForm, type: :model do
         expect(@purchase).to be_valid
       end
 
-      it "建物名が抜けていても登録できること" do
+      it "building_nameが空でも登録できること" do
         expect(@purchase).to be_valid
       end
     end
@@ -60,9 +60,6 @@ RSpec.describe PurchaseForm, type: :model do
         @purchase.phone_number = ""
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include("Phone number can't be blank")
-      end
-
-      it "電話番号は9桁以下だと登録できない" do
       end
 
       it "電話番号は12桁以上だと登録できない" do
