@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_item, except: [:index, :new, :create]
   before_action :other_sellers_edit, except: [:index, :new, :create, :show] 
   before_action :authenticate_user!, except: [:index, :show]
-
+  before_action :sold_out_not_edit, only: [:edit, :update]
   def index
     @items = Item.order("created_at DESC") 
   end
@@ -24,7 +24,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path if current_user.id == @item.user_id && @item.purchase_management.present?
   end
 
   def update
@@ -56,5 +55,9 @@ class ItemsController < ApplicationController
   def other_sellers_edit
     redirect_to root_path unless current_user.id == @item.user_id
   end
-  
+
+  def sold_out_not_edit
+    redirect_to root_path if @item.purchase_management.present?
+  end
+
 end
