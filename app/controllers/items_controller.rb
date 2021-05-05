@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, except: [:index, :new, :create]
-  before_action :other_sellers_edit, except: [:index, :new, :create, :show] 
+  before_action :other_sellers_edit, except: [:index, :new, :create, :show, :edit] 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :sold_out_not_edit, only: [:edit, :update]
   def index
